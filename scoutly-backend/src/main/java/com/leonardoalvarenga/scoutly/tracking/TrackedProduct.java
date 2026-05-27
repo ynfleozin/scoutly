@@ -22,6 +22,7 @@ public class TrackedProduct {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
+    @Setter
     @Column(name = "user_id", nullable = false)
     private String userId;
 

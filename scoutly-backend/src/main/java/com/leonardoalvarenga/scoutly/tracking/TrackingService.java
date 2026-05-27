@@ -19,6 +19,8 @@ public class TrackingService {
         entity.setUrl(dto.url());
         entity.setTargetPrice(dto.targetPrice());
 
+        entity.setUserId("userMock-123");
+
         TrackedProduct savedEntity = repository.save(entity);
 
         return new TrackingResponseDTO(
