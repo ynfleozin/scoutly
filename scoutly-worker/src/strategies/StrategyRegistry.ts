@@ -1,8 +1,8 @@
 import { IScraperStrategy } from "../domain/IScraperStrategy.js";
-import { MercadoLivreStrategy } from "./MercadoLivreStrategy.js";
+import { BooksToScrapeStrategy } from "./BooksToScrapeStrategy.js";
 
 const strategies: Map<string, IScraperStrategy> = new Map([
-  ["mercadolivre.com.br", new MercadoLivreStrategy()],
+  ["books.toscrape.com", new BooksToScrapeStrategy()],
 ]);
 
 export function getStrategyForDomain(domain: string): IScraperStrategy | null {
