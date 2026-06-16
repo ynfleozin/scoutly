@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
@@ -70,6 +71,21 @@ public class TrackingService {
         TrackedProduct product = repository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         product.deactivateAlert();
+
+        repository.save(product);
+    }
+
+    @Transactional
+    public void updatePrice(PriceWebhookDTO dto) {
+        TrackedProduct product = repository.findById(dto.productId())
+                .orElseThrow(() ->
+                        new ResponseStatusException(HttpStatus.NOT_FOUND, "Produto não encontrado"));
+
+        PriceHistory history = new PriceHistory();
+
+        history.setPrice(dto.price());
+
+        product.addPriceHistory(history);
 
         repository.save(product);
     }

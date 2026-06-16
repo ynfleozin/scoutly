@@ -38,4 +38,11 @@ public class TrackingController {
         service.deactivateAlert(id);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
+
+    @PostMapping("/webhook/price")
+    public ResponseEntity<Void> updatePrice(@Valid @RequestBody PriceWebhookDTO dto){
+        service.updatePrice(dto);
+
+        return ResponseEntity.ok().build();
+    }
 }

@@ -30,7 +30,21 @@ async function startWorker() {
 
           console.log(`Preço encontrado: ${price}`);
 
+          await fetch("http://localhost:8080/api/tracking/webhook/price", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              productId: payload.productId,
+              price: price,
+            }),
+          });
+
+          console.log("[→] Preço enviado para o Spring Boot.");
+
           channel.ack(msg);
+
           console.log(
             `[v] Processamento concluído e mensagem removida da fila.`,
           );
