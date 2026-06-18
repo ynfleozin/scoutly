@@ -1,1 +1,131 @@
-<p>tracked-products works!</p>
+<div class="dashboard-container">
+  <header class="dashboard-header">
+    <div class="brand">
+      <h1>Scoutly <span class="badge">Monitor</span></h1>
+    </div>
+    <div class="quick-stats">
+      <div class="stat-card">
+        <span class="stat-label">Produtos Monitorados</span>
+        <span class="stat-value text-green">{{ products.length }}</span>
+      </div>
+    </div>
+  </header>
+
+  <section class="form-section">
+    <div class="card card-form">
+      <h2>Monitorar Novo Produto</h2>
+
+      <form
+        class="product-form"
+        [formGroup]="trackingForm"
+        (ngSubmit)="onSubmit()"
+      >
+        <div class="form-group url-group">
+          <label for="url">URL do Produto</label>
+          <input
+            type="url"
+            id="url"
+            formControlName="url"
+            placeholder="Cole o link do produto que deseja monitorar"
+          />
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="name">Apelido do Produto</label>
+            <input
+              type="text"
+              id="name"
+              formControlName="name"
+              placeholder="Ex: Monitor Gamer 24'"
+            />
+          </div>
+          <div class="form-group">
+            <label for="targetPrice">Preço Alvo (R$)</label>
+            <input
+              type="number"
+              id="targetPrice"
+              formControlName="targetPrice"
+              placeholder="Ex: 1200.00"
+              step="0.01"
+            />
+          </div>
+        </div>
+
+        <button
+          type="submit"
+          class="btn-submit"
+          [disabled]="trackingForm.invalid"
+        >
+          <span>Começar Rastreamento</span>
+          <span class="btn-icon">⚡</span>
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <main class="products-section">
+    <div class="section-title-row">
+      <h2>Seus Alertas Ativos</h2>
+    </div>
+
+    <div class="products-grid">
+      @for (product of products; track product.id) {
+        <div class="card product-card" [class.inactive]="!product.active">
+          <div
+            class="card-status-strip"
+            [ngClass]="product.active ? 'bg-green' : 'bg-yellow'"
+          ></div>
+
+          <div class="product-info">
+            <div class="product-meta">
+              <span class="domain-tag"
+                >ID: {{ product.id.substring(0, 8) }}...</span
+              >
+              <span
+                class="status-badge"
+                [ngClass]="product.active ? 'tag-green' : 'tag-yellow'"
+              >
+                {{ product.active ? "Monitorando" : "Pausado" }}
+              </span>
+            </div>
+            <h3 class="product-title">{{ product.name }}</h3>
+            <a [href]="product.url" target="_blank" class="product-link"
+              >Ver link original 🔗</a
+            >
+          </div>
+
+          <div class="product-pricing">
+            <div class="price-box target-price">
+              <span class="price-label">Preço Alvo</span>
+              <span class="price-value text-yellow"
+                >R$ {{ product.targetPrice }}</span
+              >
+            </div>
+          </div>
+
+          <div class="card-actions">
+            <button
+              class="btn-action btn-delete"
+              (click)="deleteProduct(product.id)"
+              title="Excluir Alerta"
+            >
+              🗑️ <span>Excluir</span>
+            </button>
+            @if (product.active) {
+              <button
+                class="btn-action btn-deactivate"
+                (click)="deactivate(product.id)"
+                title="Desativar Alerta"
+              >
+                ⏸️ <span>Pausar</span>
+              </button>
+            }
+          </div>
+        </div>
+      } @empty {
+        <p class="empty-state">Nenhum produto sendo monitorado no momento.</p>
+      }
+    </div>
+  </main>
+</div>
