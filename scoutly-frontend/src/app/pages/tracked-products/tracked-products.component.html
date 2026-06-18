@@ -96,6 +96,20 @@
           </div>
 
           <div class="product-pricing">
+            <div class="price-box current-price">
+              <span class="price-label">Preço Atual</span>
+              <span
+                class="price-value"
+                [ngClass]="{ 'text-green': product.currentPrice }"
+              >
+                {{
+                  product.currentPrice
+                    ? "R$ " + product.currentPrice
+                    : "Buscando..."
+                }}
+              </span>
+            </div>
+
             <div class="price-box target-price">
               <span class="price-label">Preço Alvo</span>
               <span class="price-value text-yellow"

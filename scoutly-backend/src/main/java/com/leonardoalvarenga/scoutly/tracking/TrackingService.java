@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
@@ -46,6 +47,7 @@ public class TrackingService {
                 savedEntity.getName(),
                 savedEntity.getUrl(),
                 savedEntity.getTargetPrice(),
+                null,
                 savedEntity.isActive()
         );
     }
@@ -53,14 +55,20 @@ public class TrackingService {
     public List<TrackingResponseDTO> findAll() {
         return repository.findAll()
                 .stream()
-                .map(product -> new TrackingResponseDTO(
-                        product.getId(),
-                        product.getName(),
-                        product.getUrl(),
-                        product.getTargetPrice(),
-                        product.isActive()
-                ))
-                .toList();
+                .map(product -> {
+                    BigDecimal latestPrice = product.getPrices().isEmpty()
+                            ? null
+                            : product.getPrices().get(product.getPrices().size() - 1).getPrice();
+
+                    return new TrackingResponseDTO(
+                            product.getId(),
+                            product.getName(),
+                            product.getUrl(),
+                            product.getTargetPrice(),
+                            latestPrice,
+                            product.isActive()
+                    );
+                }).toList();
     }
 
     public void delete(UUID id) {

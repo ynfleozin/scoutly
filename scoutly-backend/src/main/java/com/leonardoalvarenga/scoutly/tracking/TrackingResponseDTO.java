@@ -8,6 +8,7 @@ public record TrackingResponseDTO(
         String name,
         String url,
         BigDecimal targetPrice,
+        BigDecimal currentPrice,
         boolean active
 ) {
 }

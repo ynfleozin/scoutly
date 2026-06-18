@@ -3,6 +3,7 @@ export interface TrackingResponseDTO {
   name: string;
   url: string;
   targetPrice: number;
+  currentPrice?: number;
   active: boolean;
 }
 
