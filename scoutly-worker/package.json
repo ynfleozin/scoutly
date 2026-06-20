@@ -20,6 +20,7 @@
   "devDependencies": {
     "@types/amqplib": "^0.10.8",
     "@types/node": "^25.9.2",
+    "@types/puppeteer": "^7.0.4",
     "tsx": "^4.22.4",
     "typescript": "^6.0.3"
   },
@@ -27,6 +28,7 @@
     "amqplib": "^2.0.1",
     "axios": "^1.17.0",
     "cheerio": "^1.2.0",
+    "puppeteer": "^25.1.0",
     "puppeteer-extra": "^3.3.6",
     "puppeteer-extra-plugin-stealth": "^2.11.2"
   }

@@ -19,7 +19,7 @@ public class TrackingService {
 
     private final TrackedProductRepository repository;
     private final RabbitTemplate rabbitTemplate;
-    private final List<String> supportedDomains = List.of("books.toscrape.com");
+    private final List<String> supportedDomains = List.of("books.toscrape.com", "amazon.com.br", "amazon.com");
 
     public TrackingResponseDTO add(TrackingRequestDTO dto) {
 
