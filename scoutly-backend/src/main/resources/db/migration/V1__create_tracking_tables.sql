@@ -1,11 +1,20 @@
+CREATE TABLE users (
+    id UUID PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255),
+    is_guest BOOLEAN NOT NULL
+);
+
 CREATE TABLE tracked_product (
     id UUID PRIMARY KEY,
-    user_id VARCHAR(255) NOT NULL,
+    user_id UUID NOT NULL,
     name VARCHAR(255) NOT NULL,
     url TEXT NOT NULL,
     target_price DECIMAL(10,2) NOT NULL,
     active BOOLEAN DEFAULT TRUE,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users (id)
 );
 
 CREATE TABLE price_history (

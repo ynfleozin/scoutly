@@ -24,10 +24,6 @@ public class TrackedProduct {
     private UUID id;
 
     @Setter
-    @Column(name = "user_id", nullable = false)
-    private String userId;
-
-    @Setter
     @Column(nullable = false)
     private String name;
 
@@ -50,6 +46,7 @@ public class TrackedProduct {
     @OneToMany(mappedBy = "trackedProduct", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<PriceHistory> prices = new ArrayList<>();
 
+    @Setter
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;

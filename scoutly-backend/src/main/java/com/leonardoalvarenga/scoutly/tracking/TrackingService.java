@@ -2,6 +2,8 @@ package com.leonardoalvarenga.scoutly.tracking;
 
 import com.leonardoalvarenga.scoutly.messaging.RabbitMQConfig;
 import com.leonardoalvarenga.scoutly.messaging.ScrapeProductMessage;
+import com.leonardoalvarenga.scoutly.user.User;
+import com.leonardoalvarenga.scoutly.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.http.HttpStatus;
@@ -19,22 +21,33 @@ public class TrackingService {
 
     private final TrackedProductRepository repository;
     private final RabbitTemplate rabbitTemplate;
+
+    private final UserRepository userRepository;
+
     private final List<String> supportedDomains = List.of("books.toscrape.com", "amazon.com.br", "amazon.com");
 
     public TrackingResponseDTO add(TrackingRequestDTO dto) {
 
         String domain = extractDomain(dto.url());
-        if(!supportedDomains.contains(domain)) {
+        if (!supportedDomains.contains(domain)) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Loja não suportada");
         }
 
         TrackedProduct entity = new TrackedProduct();
-
         entity.setName(dto.name());
         entity.setUrl(dto.url());
         entity.setTargetPrice(dto.targetPrice());
 
-        entity.setUserId("userMock-123");
+        User mockUser = userRepository.findByEmail("mock@scoutly.com")
+                .orElseGet(() -> {
+                    User newUser = new User();
+                    newUser.setName("Usuário Teste");
+                    newUser.setEmail("mock@scoutly.com");
+                    newUser.setGuest(true);
+                    return userRepository.save(newUser);
+                });
+
+        entity.setUser(mockUser);
 
         TrackedProduct savedEntity = repository.save(entity);
 
@@ -106,7 +119,7 @@ public class TrackingService {
     }
 
     private String extractDomain(String urlString) {
-        try{
+        try {
             java.net.URI uri = new java.net.URI(urlString);
             String domain = uri.getHost();
             return domain.startsWith("www.") ? domain.substring(4) : domain;
