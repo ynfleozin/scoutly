@@ -54,7 +54,6 @@
     display: flex;
     gap: 0.9rem;
     flex-wrap: wrap;
-    justify-content: flex-end;
 
     .stat-card {
       min-width: 120px;
@@ -79,6 +78,30 @@
         color: var(--text-main);
       }
     }
+  }
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+.btn-logout {
+  background: transparent;
+  border: 1px solid rgba(247, 66, 66, 0.35);
+  color: #f74242;
+  padding: 0.55rem 1.1rem;
+  border-radius: 12px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--transition);
+
+  &:hover {
+    background: #f74242;
+    color: white;
+    border-color: #f74242;
   }
 }
 

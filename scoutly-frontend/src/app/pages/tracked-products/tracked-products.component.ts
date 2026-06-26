@@ -8,7 +8,8 @@ import {
   Validators,
 } from '@angular/forms';
 import { TrackingResponseDTO } from '../../models/tracking.model';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-tracked-products',
@@ -19,6 +20,8 @@ import { RouterModule } from '@angular/router';
 })
 export class TrackedProductsComponent {
   private trackingService = inject(TrackingService);
+  private authService = inject(AuthService);
+  private router = inject(Router);
   private fb = inject(FormBuilder);
 
   products: TrackingResponseDTO[] = [];
@@ -78,6 +81,11 @@ export class TrackedProductsComponent {
       next: () => this.loadProducts(),
       error: (err) => console.error('Erro ao deletar', err),
     });
+  }
+
+  logout(): void {
+    this.authService.logout();
+    this.router.navigate(['/login']);
   }
 
   toggleStatus(id: string): void {

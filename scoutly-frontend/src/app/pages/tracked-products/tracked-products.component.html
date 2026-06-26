@@ -6,15 +6,21 @@
       </a>
     </div>
 
-    <div class="quick-stats">
-      <div class="stat-card">
-        <span class="stat-label">Ativos</span>
-        <span class="stat-value text-green">{{ activeProductsCount }}</span>
+    <div class="header-right">
+      <div class="quick-stats">
+        <div class="stat-card">
+          <span class="stat-label">Ativos</span>
+          <span class="stat-value text-green">{{ activeProductsCount }}</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-label">Total</span>
+          <span class="stat-value">{{ products.length }}</span>
+        </div>
       </div>
-      <div class="stat-card">
-        <span class="stat-label">Total</span>
-        <span class="stat-value">{{ products.length }}</span>
-      </div>
+
+      <button class="btn-logout" (click)="logout()" title="Sair da conta">
+        Sair
+      </button>
     </div>
   </header>
 
