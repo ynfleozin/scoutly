@@ -14,6 +14,6 @@ public interface UserRepository extends JpaRepository<User, UUID> {
 
     @Transactional
     @Modifying
-    @Query("DELETE FROM User u WHERE u.isGuest = true AND u.createdAt < :targetTime")
+    @Query("DELETE FROM User u WHERE u.guest = true AND u.createdAt < :targetTime")
     void deleteExpiredGuests(LocalDateTime targetTime);
 }
