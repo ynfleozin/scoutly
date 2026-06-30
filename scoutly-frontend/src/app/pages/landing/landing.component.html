@@ -4,7 +4,13 @@
       <img src="/logoScoutly.webp" alt="Scoutly" />
     </div>
     <div class="nav-actions">
-      <a routerLink="/login" class="btn-login">Entrar</a>
+      <ng-container *ngIf="!isUserLoggedIn">
+        <a routerLink="/login" class="btn-login">Entrar</a>
+      </ng-container>
+
+      <ng-container *ngIf="isUserLoggedIn">
+        <a routerLink="/dashboard" class="btn-login">Meu Painel</a>
+      </ng-container>
     </div>
   </nav>
 
@@ -23,12 +29,24 @@
       </p>
 
       <div class="cta-group">
-        <a routerLink="/register" class="btn-primary">
-          <span>Começar agora</span>
-        </a>
-        <a (click)="startDemo()" class="btn-secondary" style="cursor: pointer">
-          <span>Ver demonstração</span>
-        </a>
+        <ng-container *ngIf="!isUserLoggedIn">
+          <a routerLink="/register" class="btn-primary">
+            <span>Começar agora</span>
+          </a>
+          <a
+            (click)="startDemo()"
+            class="btn-secondary"
+            style="cursor: pointer"
+          >
+            <span>Ver demonstração</span>
+          </a>
+        </ng-container>
+
+        <ng-container *ngIf="isUserLoggedIn">
+          <a routerLink="/dashboard" class="btn-primary">
+            <span>Acessar meu Painel</span>
+          </a>
+        </ng-container>
       </div>
 
       <div class="feature-strip" aria-label="Recursos principais">
