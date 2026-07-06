@@ -1,8 +1,6 @@
 package com.leonardoalvarenga.scoutly.auth;
 
-import com.leonardoalvarenga.scoutly.auth.dtos.AuthResponseDTO;
-import com.leonardoalvarenga.scoutly.auth.dtos.LoginRequestDTO;
-import com.leonardoalvarenga.scoutly.auth.dtos.RegisterRequestDTO;
+import com.leonardoalvarenga.scoutly.auth.dtos.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.AuthenticationException;
@@ -37,5 +35,22 @@ public class AuthController {
     @PostMapping("/guest")
     public ResponseEntity<AuthResponseDTO> guestLogin() {
         return ResponseEntity.ok(authService.guestLogin());
+    }
+
+    @PostMapping("/forgot-password")
+    public ResponseEntity<?> forgotPassword(@RequestBody ForgotPasswordDTO data) {
+        authService.requestPasswordReset(data.email());
+
+        return ResponseEntity.ok("Link de recuperação de senha enviado.");
+    }
+
+    @PostMapping("/reset-password")
+    public ResponseEntity<?> resetPassword(@RequestBody ResetPasswordDTO data) {
+        try {
+            authService.resetPassword(data.token(), data.newPassword());
+            return ResponseEntity.ok("Senha alterada com sucesso!");
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 }

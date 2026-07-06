@@ -92,11 +92,11 @@ public class AuthService {
         emailService.sendHtmlEmail(user.getEmail(), "Redefinição de Senha - Scoutly", htmlBody);
     }
 
-    public void resetPassword(String token, String newPassword){
+    public void resetPassword(String token, String newPassword) {
         PasswordResetToken resetToken = tokenRepository.findByToken(token)
                 .orElseThrow(() -> new RuntimeException("Token inválido ou não encontrado."));
 
-        if(resetToken.isExpired()){
+        if (resetToken.isExpired()) {
             tokenRepository.delete(resetToken);
             throw new RuntimeException("Este link já expirou. Tente novamente");
         }

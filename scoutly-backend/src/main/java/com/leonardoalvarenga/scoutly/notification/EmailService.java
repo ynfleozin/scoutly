@@ -31,6 +31,8 @@ public class EmailService {
             helper.setSubject(subject);
             helper.setText(htmlBody, true);
 
+            mailSender.send(message);
+            log.info("E-mail enviado com sucesso para: {}", to);
         }catch (MessagingException e){
             log.error("Erro ao enviar e-mail para {}: {}", to, e.getMessage());
         }
