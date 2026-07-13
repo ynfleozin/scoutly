@@ -13,7 +13,7 @@ import { environment } from '../../environments/environment.prod';
 export class TrackingService {
   private http = inject(HttpClient);
 
-  private apiUrl = `${environment.apiUrl}/auth`;
+  private apiUrl = `${environment.apiUrl}/tracking`;
 
   getTrackedProducts(): Observable<TrackingResponseDTO[]> {
     return this.http.get<TrackingResponseDTO[]>(this.apiUrl);
