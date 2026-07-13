@@ -28,6 +28,7 @@
     "amqplib": "^2.0.1",
     "axios": "^1.17.0",
     "cheerio": "^1.2.0",
+    "dotenv": "^17.4.2",
     "puppeteer": "^25.1.0",
     "puppeteer-extra": "^3.3.6",
     "puppeteer-extra-plugin-stealth": "^2.11.2"
