@@ -3,6 +3,7 @@ import { inject } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { catchError, throwError } from 'rxjs';
+import { environment } from '../../../environments/environment.prod';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const authService = inject(AuthService);
@@ -11,7 +12,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
 
   let clonedRequest = req;
 
-  if (token && req.url.includes('localhost:8080')) {
+  if (token && req.url.includes(environment.apiUrl)) {
     clonedRequest = req.clone({
       setHeaders: {
         Authorization: `Bearer ${token}`,

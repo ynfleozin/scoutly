@@ -71,7 +71,7 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
 
-        configuration.setAllowedOrigins(List.of("http://localhost:4200", "https://scoutly-sand.vercel.app/"));
+        configuration.setAllowedOrigins(List.of("http://localhost:4200", "https://scoutly-sand.vercel.app"));
 
         configuration.setAllowedMethods(List.of("GET", "POST", "PATCH", "DELETE", "OPTIONS"));
 

@@ -80,7 +80,7 @@ public class AuthService {
 
         tokenRepository.save(resetToken);
 
-        String resetLink = "http://localhost:4200/reset-password?token=" + token;
+        String resetLink = "https://scoutly-sand.vercel.app/reset-password?token=" + token;
         String htmlBody = "<div style=\"font-family: Arial, sans-serif; color: #333;\">"
                 + "<h2 style=\"color: #10C07F;\">Recuperação de Senha - Scoutly</h2>"
                 + "<p>Olá, " + user.getName() + "!</p>"

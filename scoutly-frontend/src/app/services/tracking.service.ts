@@ -5,7 +5,7 @@ import {
   TrackingRequestDTO,
   TrackingResponseDTO,
 } from '../models/tracking.model';
-import { environment } from '../../environments/environment';
+import { environment } from '../../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root',
